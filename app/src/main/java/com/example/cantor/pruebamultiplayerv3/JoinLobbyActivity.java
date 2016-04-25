@@ -58,8 +58,6 @@ public class JoinLobbyActivity extends AppCompatActivity{
 
 
     private void refreshLobbies() {
-        Toast toast = Toast.makeText(JoinLobbyActivity.this, "Refreshing lobbies", Toast.LENGTH_SHORT);
-        toast.show();
         ListView batList = (ListView)findViewById(R.id.listViewLobbies);
         ArrayAdapter<String> channelListAdapter = new ArrayAdapter<String>(this, android.R.layout.test_list_item);
         batList.setAdapter(channelListAdapter);

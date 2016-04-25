@@ -122,7 +122,7 @@ public class LocalNetworkServices extends Service {
                     //Transport UDP
                     //Send information even without received confirmation
                     //TODO: transport_UPD?
-                    sessionOpts.transports = SessionOpts.TRANSPORT_ANY;
+                    sessionOpts.transports = SessionOpts.TRANSPORT_UDP;
 
                     status = mBus.bindSessionPort(contactPort, sessionOpts, new SessionPortListener() {
                         @Override
@@ -132,8 +132,6 @@ public class LocalNetworkServices extends Service {
                     });
                     if (status != Status.OK) {
                         //TODO: change this
-                        Toast toast = Toast.makeText(LocalNetworkServices.this, "Error bind session port", Toast.LENGTH_SHORT);
-                        toast.show();
                         return;
                     }
 
@@ -143,47 +141,9 @@ public class LocalNetworkServices extends Service {
                     status = aboutObj.announce(CONTACT_PORT, aboutData);
                     if (status != Status.OK) {
                         //TODO: change this
-                        Toast toast = Toast.makeText(LocalNetworkServices.this, "Error sending about info ", Toast.LENGTH_SHORT);
-                        toast.show();
-                        //return;
+                        return;
                     }
-                    /**
-                     * The observer used to discover and control the users in the network
-                     */
-                    observer = new Observer(mBus, new Class[]{LobbyInterface.class});
-                    observer.registerListener(new Observer.Listener() {
-                        @Override
-                        /**
-                         * When a new lobby is discovered, automatically put this in our list of lobbies.
-                         * Lobbies are only created if an user requires it, so we will only discover valid lobbies
-                         */
-                        public void objectDiscovered(ProxyBusObject proxyBusObject) {
-                            // We enable the property cache so as to avoid calling multiple times each phone
-                            //TODO: PROVISIONAL------------------------------------------------------------------------------------------------------------
-                            Log.d(TAG, "lobby discovered");
-                            Message msg = obtainMessage(ADD_LOBBY);
-                            msg.obj = proxyBusObject;
-                            sendMessage(msg);
-
-                        }
-
-                        @Override
-                        /**
-                         * If a lobby is lost, it means that the host has closed it.
-                         * Remove it from our list of lobbies.
-                         */
-                        public void objectLost(ProxyBusObject proxyBusObject) {
-                            Log.d(TAG, "Host lost a lobby");
-                            Log.d(TAG, "User lost a lobby");
-                            LobbyInterface lobbiI = (LobbyInterface)proxyBusObject.getInterface(LobbyInterface.class);
-                            String name = reverseLstLobbies.get(lobbiI);
-                            lstLobbies.remove(name);
-                            reverseLstLobbies.remove(lobbiI);
-                            LocalNetworkManager.refreshActivity();
-                        }
-                    });
-
-
+                    //TODO: si algo peta, poner un observer aqui.
                     break;
                 case CONNECT_USER:
                     org.alljoyn.bus.alljoyn.DaemonInit.PrepareDaemon(getApplicationContext());
@@ -198,8 +158,6 @@ public class LocalNetworkServices extends Service {
                     if (status2 != Status.OK) {
                         //TODO: change this
                         Log.d(TAG, "Error registering bus object: " + status2.toString());
-                        Toast toast = Toast.makeText(LocalNetworkServices.this, "Error register bus object", Toast.LENGTH_SHORT);
-                        toast.show();
                         return;
                     }
                     Log.d(TAG, "Reached connect: ");
@@ -207,16 +165,12 @@ public class LocalNetworkServices extends Service {
                     if (status2 != Status.OK) {
                         //Message error: couldn't connect to the bus
                         //TODO: change this
-                        Toast toast = Toast.makeText(LocalNetworkServices.this, "Error connecting to the bus", Toast.LENGTH_SHORT);
-                        toast.show();
                         return;
                     }
 
                     status2 = mBus.registerSignalHandlers(LocalNetworkServices.this);
                     if (status2 != Status.OK) {
                         //TODO: change this
-                        Toast toast = Toast.makeText(LocalNetworkServices.this, "Error register signal handler", Toast.LENGTH_SHORT);
-                        toast.show();
                         return;
                     }
                    /*
@@ -230,7 +184,7 @@ public class LocalNetworkServices extends Service {
                     sessionOpts2.proximity = SessionOpts.PROXIMITY_ANY;
                     //Transport UDP
                     //Send information even without received confirmation
-                    sessionOpts2.transports = SessionOpts.TRANSPORT_ANY;
+                    sessionOpts2.transports = SessionOpts.TRANSPORT_UDP;
 
                     status = mBus.bindSessionPort(contactPort2, sessionOpts2, new SessionPortListener() {
                         @Override
@@ -240,8 +194,6 @@ public class LocalNetworkServices extends Service {
                     });
                     if (status != Status.OK) {
                         //TODO: change this
-                        Toast toast = Toast.makeText(LocalNetworkServices.this, "Error bind session port", Toast.LENGTH_SHORT);
-                        toast.show();
                         return;
                     }
 
