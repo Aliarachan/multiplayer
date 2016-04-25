@@ -168,4 +168,12 @@ public class LocalNetworkManager extends Application {
     public void eraseUser(String uuid){
         facade.eraseUser(uuid);
     }
+
+    public void setInfo(String uuid, String info){
+        facade.setInfo(uuid, info);
+    }
+
+    public String[] getInfo(){
+        return facade.getInfo();
+    }
 }

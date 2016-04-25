@@ -4,15 +4,8 @@ import android.util.Log;
 
 import org.alljoyn.bus.BusException;
 import org.alljoyn.bus.BusObject;
-import org.alljoyn.bus.annotation.Position;
-import org.alljoyn.bus.annotation.Signature;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by Cantor on 07/04/2016.
@@ -20,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Lobby implements LobbyInterface, BusObject {
     private static final String TAG = "Lobby";
     private ArrayList<String> lstUsers;
-    private String[] lstColors, mensages;
+    private String[] lstColors, messages;
     private String name;
     private boolean gameOn = false;
 
@@ -28,10 +21,10 @@ public class Lobby implements LobbyInterface, BusObject {
         this.name = name;
         lstUsers = new ArrayList<>();
         lstColors = new String[4];
-        mensages = new String[4];
+        messages = new String[4];
         for(int i = 0; i <= 3; i++){
             lstColors[i] = "";
-            mensages[i] = "";
+            messages[i] = "";
         }
     }
 
@@ -96,7 +89,7 @@ public class Lobby implements LobbyInterface, BusObject {
         int i = 0;
         for(String user: lstUsers){
             if (uuid.equals(user)){
-                mensages[i]=string;
+                messages[i]=string;
             }
             i++;
         }
@@ -104,7 +97,7 @@ public class Lobby implements LobbyInterface, BusObject {
 
     @Override
     public String[] getInfo() throws BusException {
-        return mensages;
+        return messages;
     }
 
 }

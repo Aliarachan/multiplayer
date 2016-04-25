@@ -92,13 +92,15 @@
         <EditText
             android:layout_width="256dp"
             android:layout_height="wrap_content"
+            android:text=""
             android:id="@+id/editTextWrite" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Send"
-            android:id="@+id/buttonSend" />
+            android:id="@+id/buttonSend"
+            android:onClick="onClick" />
     </LinearLayout>
 
 </LinearLayout>

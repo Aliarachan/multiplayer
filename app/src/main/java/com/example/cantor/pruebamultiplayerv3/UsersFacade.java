@@ -125,4 +125,38 @@ public class UsersFacade {
             }
         }
     }
+
+    public void setInfo(String uuid, String info){
+        if (isHost){
+            try {
+                lobby.setInfo(uuid, info);
+            } catch (BusException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                lobbyI.setInfo(uuid, info);
+            } catch (BusException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public String[] getInfo(){
+        String[] ret = new String[4];
+        if (isHost){
+            try {
+                ret = lobby.getInfo();
+            } catch (BusException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                ret = lobbyI.getInfo();
+            } catch (BusException e) {
+                e.printStackTrace();
+            }
+        }
+        return ret;
+    }
 }
