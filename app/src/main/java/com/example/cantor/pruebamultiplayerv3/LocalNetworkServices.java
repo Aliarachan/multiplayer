@@ -122,7 +122,7 @@ public class LocalNetworkServices extends Service {
                     //Transport UDP
                     //Send information even without received confirmation
                     //TODO: transport_UPD?
-                    sessionOpts.transports = SessionOpts.TRANSPORT_UDP;
+                    sessionOpts.transports = SessionOpts.TRANSPORT_ANY;
 
                     status = mBus.bindSessionPort(contactPort, sessionOpts, new SessionPortListener() {
                         @Override
@@ -184,7 +184,7 @@ public class LocalNetworkServices extends Service {
                     sessionOpts2.proximity = SessionOpts.PROXIMITY_ANY;
                     //Transport UDP
                     //Send information even without received confirmation
-                    sessionOpts2.transports = SessionOpts.TRANSPORT_UDP;
+                    sessionOpts2.transports = SessionOpts.TRANSPORT_ANY;
 
                     status = mBus.bindSessionPort(contactPort2, sessionOpts2, new SessionPortListener() {
                         @Override
@@ -250,7 +250,7 @@ public class LocalNetworkServices extends Service {
                     } catch (BusException e) {
                         e.printStackTrace();
                     }
-                    observer.close();
+                    //observer.close();
                     mBus.unregisterBusObject(lobby);
                     //TODO: watch clear
                     //lstLobbies.clear();
